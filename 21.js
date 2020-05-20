@@ -1,4 +1,9 @@
 const readline = require('readline-sync');
+let playerHands = [];
+
+function prompt(msg) {
+    console.log(`=> ${msg}`);
+  }
 
 let cards = [
 
@@ -18,11 +23,47 @@ let cards = [
 
 function cardSelection(){
     var x = Math.floor((Math.random() * cards.length) + 0);
-    return x;
+    playerHands.push(x);
 }
 
-console.log(cards[cardSelection()]);
 
-function cardPlayer(){
-    
+
+function playerSelection(){
+    let choice;
+
+    while (true) {
+        prompt('Do you want to hit (1) or stay (2)?');
+        choice = readline.question().trim();
+        if (choice == 1) {
+            cardSelection();
+            console.log(playerHands);
+            continue;
+        } else if (choice == 2) {
+        return dealerSelection();
+        break;
+        } else { 
+        prompt('Invalid selection. Try again.');
+        }    
 }
+}
+
+function dealerSelection(){
+    let choice;
+
+    while (true) {
+        prompt('Do you want to hit (0) or stay (2)?');
+        choice = readline.question().trim();
+        if (choice == 1) {
+            continue;
+        } else if (choice == 2) {
+        return dealerSelection();
+        break;
+        } else { 
+        prompt('Invalid selection. Try again.');
+        }     
+}
+}
+
+playerSelection();
+
+
